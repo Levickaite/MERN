@@ -3,7 +3,8 @@ import mongoose from 'mongoose'
 
 // GET - paimti visus rpatimus
 export const getWorkouts = async (req, res)=>{
-    const pratimai = await Workout.find({}).sort({createdAt: -1})
+    const user_id= req.user._id
+    const pratimai = await Workout.find({user_id}).sort({createdAt: -1})
     res.status(200).json(pratimai)
 }
 
@@ -19,7 +20,8 @@ export const createWorkout = async (req, res)=>{
         return res.status(400).json({error: 'Prašome užpildyti visus laukelius', emptyFields})
     }
     try {
-        const pratimas = await Workout.create({title, reps, load})
+        const user_id = req.user._id
+        const pratimas = await Workout.create({title, reps, load, user_id})
         res.status(200).json(pratimas)
     }catch(error){
         res.status(400).json({error: error.message})

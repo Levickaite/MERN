@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import { useWorkoutContext} from '../hooks/useWorkoutContext'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const Workoutform = ()=>{
     const {dispatch} = useWorkoutContext()
@@ -8,14 +9,19 @@ const Workoutform = ()=>{
     const [reps, setReps] = useState('')
     const [error, setError] = useState('')
     const [ emptyFields, setEmptyFields] = useState([])
+    const {user} = useAuthContext()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        if(!user){
+            setError('Būtina prisijungti')
+            return
+        }
         const pratimas = {title, load, reps}
         const response = await fetch('api/pratimai', {
             method: 'POST',
             body: JSON.stringify(pratimas),
-            headers: {'Content-Type': 'application/json'}
+            headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${user.token}`}
         })
         const json = await response.json()
         if(!response.ok){

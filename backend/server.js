@@ -2,6 +2,7 @@ import dotenv from 'dotenv'
 import express from 'express'
 import pratimaiRoutes from './routes/pratimai.js'
 import mongoose from 'mongoose'
+import userRoutes from './routes/user.js'
 
 dotenv.config()
 
@@ -15,7 +16,9 @@ app.use((req, res, next)=> {
     
 })
 //routes 
+
 app.use('/api/pratimai', pratimaiRoutes)
+app.use('/api/user', userRoutes)
 app.get('/',(req, res)=>{
     res.json({mssg: 'Welcome to the app!'})
 } )

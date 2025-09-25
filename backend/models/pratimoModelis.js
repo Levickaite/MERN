@@ -13,6 +13,10 @@ const pratimoSchema = new Schema ({
     load: {
         type: Number,
         required: true
+    },
+    user_id: {
+        type: String,
+        required: true
     }
 }, {timestamps: true})
 
