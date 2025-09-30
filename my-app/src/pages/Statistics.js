@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 import { useNavigate } from "react-router-dom";
 import { useWorkoutContext } from "../hooks/useWorkoutContext";
 
 const Stats = () =>{
-    
+    const { user } = useAuthContext()
     const [data, setData] = useState([])
     const [progress, setProgress] = useState(0)
     const {pratimai} = useWorkoutContext()
@@ -51,13 +52,46 @@ const Stats = () =>{
         
         setProgress(Math.min(100, Math.round((totalReps / weeklyGoal)*100)))
     }, [pratimai, weeklyGoal])
-    
-    const handleGoalChange =(e)=>{
-        const value = parseInt(e.target.value)
-        if (!isNaN(value) && value >0){
-            setWeeklyGoal(value)
+
+    useEffect(() => {
+        const fetchGoal = async () => {
+            const response = await fetch('/api/user/goal', {
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            });
+            const json = await response.json();
+            if (response.ok) {
+                setWeeklyGoal(json.goal);
+            }
+        };
+        if (user) {
+            fetchGoal();
         }
-    }
+    }, [user]);
+
+    const handleGoalChange = async (e) => {
+        const value = parseInt(e.target.value);
+        if (!isNaN(value) && value > 0) {
+            setWeeklyGoal(value);
+            
+            const response = await fetch('/api/user/goal', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
+                },
+                body: JSON.stringify({ goal: value })
+            });
+            
+        }
+    };
+
+    const getProgressBarColor = () => {
+        if (progress < 30) return '#e7195a';
+        if (progress >= 30 && progress <= 70) return '#f2d93b';
+        return '#1aac83';
+    };
 
     return (
         <div className="stats">
@@ -69,10 +103,10 @@ const Stats = () =>{
                 </h3>
                 <div className="progress">
                     <div className="progress-bar"
-                    style={{width: `${progress}%`, backgroundColor : progress >=100? "var(--primary)" : "var(--progress-color"}}>
+                    style={{width: `${progress}%`, backgroundColor: getProgressBarColor()}}>
 
                     </div>
-                    
+
                 </div>
                 <p>{progress}% pasiekta</p>
             </div>

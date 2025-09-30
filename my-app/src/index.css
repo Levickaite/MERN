@@ -7,6 +7,8 @@
   --progress-color: #f2d93b;
 }
 
+
+
 body {
   background: #f1f1f1;
   margin: 0;
@@ -24,6 +26,7 @@ header .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
 header a {
@@ -159,11 +162,200 @@ nav button{
 .back-button{
   background: var(--primary);
   border: 0;
-  color: #fff;
+  color: #f1f1f1;
   padding: 10px;
   font-family: "Poppins";
   border-radius: 4px;
   cursor: pointer;
 }
-/*pasidaryt dark mode ir pakeist progreso vykdymo spalvas*/
 
+
+/*DARK */
+body.dark {
+  background-color: #121212;
+  color: #ddd;
+
+}
+
+body.dark header{
+  background-color: #1e1e1e;
+  color: #ddd;
+
+}
+body.dark .workout-details{
+  background-color: #1e1e1e;
+  color: #ddd;
+  box-shadow: 2px 2px 5px rgba(255,255,255,0.05);
+}
+body.dark form.signup,
+body.dark form.login {
+  background: #1e1e1e;
+  color: #ddd;
+}
+
+body.dark .progress {
+  border: none;
+  background: #333;
+}
+
+
+.darkmode-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+  margin-left: 10px;
+}
+
+.darkmode-toggle:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+body.dark .darkmode-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+body.dark header h1,
+body.dark header a{
+  color: #ddd;
+}
+
+body.dark input::placeholder {
+  color: #333;
+}
+
+body.dark nav button{
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+}
+
+body.dark .workout-details span{
+  background-color: #333;
+  color: #ddd;
+}
+body.dark .workout-details p{
+  
+  color: #ddd;
+}
+
+
+@media (max-width: 900px) {
+  .home {
+    
+    gap: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+  }
+
+  .charts-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  header .container {
+    padding: 10px 12px;
+  }
+
+  nav div {
+    gap: 8px;
+    display: flex;
+
+  }
+
+  .pages {
+    padding: 12px;
+  }
+
+  .badge {
+    min-width: 140px;
+  }
+}
+
+
+body.dark .chart-card {
+  --card-bg: #1e1e1e;
+}
+
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 25px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hamburger:focus {
+  outline: none;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: var(--primary);
+  border-radius: 10px;
+  transition: all 0.3s linear;
+  position: relative;
+  transform-origin: 1px;
+}
+
+
+nav {
+  transition: max-height 0.3s ease-in-out;
+}
+.container span{
+  font-size: x-small;
+}
+
+
+@media (max-width: 768px) {
+  nav {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: white;
+    width: 200px;
+    max-height: 0;
+    overflow: hidden;
+    flex-direction: column;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    border-radius: 4px;
+  }
+
+  body.dark nav {
+    background-color: #1e1e1e;
+    color: #ddd;
+  }
+
+  nav.open {
+    max-height: 300px; 
+  }
+
+  nav div {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  nav a, nav button, nav span {
+    margin: 10px 0;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}

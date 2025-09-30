@@ -14,12 +14,12 @@ function App() {
     <DarkModeProvider>
 
       <div className="App">
-      
+
       <BrowserRouter>
       <Navbar />
         <div className="pages">
           <Routes>
-            <Route 
+            <Route
               path='/stats'
               element= {user ? <Stats/> : <Navigate to='/login' replace/>}
               />
@@ -38,7 +38,7 @@ function App() {
           </Routes>
         </div>
       </BrowserRouter>
-        
+
       </div>
     </DarkModeProvider>
   );
