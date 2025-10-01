@@ -168,6 +168,20 @@ nav button{
   border-radius: 4px;
   cursor: pointer;
 }
+.period-toggle{
+  display: flex;
+  gap: 10px;
+
+}
+.period-toggle button{
+  background: var(--primary);
+  border: 0;
+  color: #f1f1f1;
+  padding: 5px;
+  font-family: "Poppins";
+  border-radius: 4px;
+  cursor: pointer;
+}
 
 
 /*DARK */
