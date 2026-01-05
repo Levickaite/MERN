@@ -145,6 +145,10 @@ const Stats = () =>{
         return '#1aac83';
     };
 
+    // Safe computed records — guard against pratimai being null
+    const maxLoad = pratimai ? Math.max(0, ...(pratimai.map(p => p.load || 0))) : 0;
+    const maxReps = pratimai ? Math.max(0, ...(pratimai.map(p => p.reps || 0))) : 0;
+
     return (
         <div className="stats">
             <button onClick={()=> navigate("/")} className="back-button">Atgal</button>
@@ -164,8 +168,8 @@ const Stats = () =>{
             </div>
             <div className="records">
                 <h3>Asmeniniai rekordai</h3>
-                <p>Didžiausias svoris: {Math.max(...pratimai.map(p=> p.load), 0)} kg</p>
-                <p>Daugiausiai pakartojimų: {Math.max(...pratimai.map(p=> p.reps), 0)}</p>
+                <p>Didžiausias svoris: {maxLoad} kg</p>
+                <p>Daugiausiai pakartojimų: {maxReps}</p>
             </div>
 
             <div className="period-toggle">
