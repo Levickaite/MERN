@@ -6,17 +6,16 @@ export const workoutReducer = (state, action) =>{
     switch(action.type){
         case 'SET_WORKOUTS':
             console.log(action.payload);
-            return {pratimai: action.payload}
+            return {pratimai: Array.isArray(action.payload) ? action.payload : [action.payload]}
             
         case 'CREATE_WORKOUT':
-            return {pratimai: [action.payload, ...state.pratimai]}
+            return {pratimai: [action.payload, ...(state.pratimai || [])]}
         case 'DELETE_WORKOUT':
-            console.log(state.pratimai.filter(pratimas => pratimas._id !== action.payload._id)
-);
+            // ensure state.pratimai is an array before filtering
+            const current = state.pratimai || []
+            console.log(current.filter(pratimas => pratimas._id !== action.payload._id));
             return {
-                pratimai: state.pratimai.filter(pratimas => pratimas._id !== action.payload._id)
-                
-                
+                pratimai: current.filter(pratimas => pratimas._id !== action.payload._id)
             }
             default:
             return state
@@ -25,7 +24,7 @@ export const workoutReducer = (state, action) =>{
 
 export const WorkoutContextProvider = ({children}) =>{
     const [state, dispatch] = useReducer(workoutReducer, {
-        pratimai: null
+        pratimai: []
     })
 
     return (

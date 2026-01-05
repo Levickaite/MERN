@@ -3,6 +3,7 @@ import WorkoutDetails from '../components/WorkoutDetails'
 import WorkoutForm from '../components/WorkoutForm'
 import {useWorkoutContext} from "../hooks/useWorkoutContext"
 import { useAuthContext } from "../hooks/useAuthContext"
+import { API_BASE } from '../config'
 
 const Home = () => {
     const {pratimai, dispatch} = useWorkoutContext()
@@ -10,8 +11,8 @@ const Home = () => {
 
     useEffect(()=>{
         const fetchPratimus = async () =>{
-            const response = await fetch('/api/pratimai',{
-                headers: {'Authorization': `Bearer ${user.token}`},
+        const response = await fetch(`${API_BASE}/api/pratimai`,{
+            headers: {'Authorization': `Bearer ${user.token}`},
             })
             const json = await response.json()
             if(response.ok){

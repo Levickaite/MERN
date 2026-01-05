@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { API_BASE } from '../config'
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 import { useNavigate } from "react-router-dom";
 import { useWorkoutContext } from "../hooks/useWorkoutContext";
@@ -107,7 +108,7 @@ const Stats = () =>{
 
     useEffect(() => {
         const fetchGoal = async () => {
-            const response = await fetch('/api/user/goal', {
+            const response = await fetch(`${API_BASE}/api/user/goal`, {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }
@@ -127,7 +128,7 @@ const Stats = () =>{
         if (!isNaN(value) && value > 0) {
             setWeeklyGoal(value);
             
-            const response = await fetch('/api/user/goal', {
+            const response = await fetch(`${API_BASE}/api/user/goal`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

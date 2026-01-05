@@ -4,10 +4,9 @@ import pratimaiRoutes from './routes/pratimai.js'
 import mongoose from 'mongoose'
 import userRoutes from './routes/user.js'
 import cors from 'cors'
+import path from 'path'
 // load .env from backend folder (we run npm from project root)
 dotenv.config({ path: path.resolve(process.cwd(), 'backend', '.env') })
-
-import path from 'path'
 
 //express app
 const app = express()
