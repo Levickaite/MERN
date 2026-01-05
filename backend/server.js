@@ -3,11 +3,21 @@ import express from 'express'
 import pratimaiRoutes from './routes/pratimai.js'
 import mongoose from 'mongoose'
 import userRoutes from './routes/user.js'
+import cors from 'cors'
+// load .env from backend folder (we run npm from project root)
+dotenv.config({ path: path.resolve(process.cwd(), 'backend', '.env') })
 
-dotenv.config()
+import path from 'path'
 
 //express app
-const app =express()
+const app = express()
+
+//cors middleware
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}))
 //middleware
 app.use(express.json())
 app.use((req, res, next)=> {
