@@ -34,3 +34,5 @@ If you'd like, I can:
 - Add a GitHub Action that automatically deploys to Vercel (not necessary if you use Vercel's integration).
 - Add a Render-friendly `render.yaml` for 1-click Render deploy of the backend as well.
 
+Redeploy trigger: minor docs update to prompt Vercel redeploy.
+
