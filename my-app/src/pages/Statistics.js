@@ -101,7 +101,7 @@ const Stats = () =>{
         const totalReps = pratimai.filter((item)=>{
             const d= new Date(item.createdAt)
             return d >= start && d<= end
-        }). reduce((sum, item)=> sum + item.reps, 0)
+        }).reduce((sum, item)=> sum + item.reps, 0)
         
         setProgress(Math.min(100, Math.round((totalReps / weeklyGoal)*100)))
     }, [pratimai, weeklyGoal, period, customStart, customEnd])
@@ -128,7 +128,7 @@ const Stats = () =>{
         if (!isNaN(value) && value > 0) {
             setWeeklyGoal(value);
             
-            const response = await fetch(`${API_BASE}/api/user/goal`, {
+            await fetch(`${API_BASE}/api/user/goal`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
